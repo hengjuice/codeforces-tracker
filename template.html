@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Codeforces Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f6f7fb;--panel:#fff;--panel2:#f1f3f9;--line:#e4e7ef;--fg:#141826;--mut:#6b7285;--acc:#4f46e5;--acc2:#818cf8;--ok:#16a34a;--warn:#f59e0b;--bad:#ef4444;--shadow:0 1px 2px rgba(20,24,38,.05),0 4px 16px rgba(20,24,38,.04);
+ --h0:#e9ecf4;--h1:#c7d2fe;--h2:#818cf8;--h3:#4f46e5;--h4:#312e81}
+:root[data-theme=dark]{--bg:#0b0d14;--panel:#141824;--panel2:#1b2030;--line:#252b3d;--fg:#e8eaf2;--mut:#8b93a8;--acc:#818cf8;--acc2:#6366f1;--ok:#4ade80;--warn:#fbbf24;--bad:#f87171;--shadow:none;
+ --h0:#1b2030;--h1:#2b3170;--h2:#4f5bd5;--h3:#7c86f5;--h4:#c7d2fe}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+a{color:inherit;text-decoration:none}a:hover{color:var(--acc)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 60px}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top{max-width:1120px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.logo{display:flex;gap:2px;align-items:flex-end;height:18px}.logo i{width:5px;border-radius:2px}
+.logo i:nth-child(1){height:9px;background:#f59e0b}.logo i:nth-child(2){height:18px;background:#4f46e5}.logo i:nth-child(3){height:13px;background:#ef4444}
+.grow{flex:1}.who{font-weight:600}.upd{color:var(--mut);font-size:12px}
+.icon-btn{border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
+.icon-btn:hover{border-color:var(--acc)}
+nav.tabs{max-width:1120px;margin:auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--mut);font:600 14px Inter,sans-serif;padding:10px 14px;cursor:pointer;white-space:nowrap}
+nav.tabs button:hover{color:var(--fg)}nav.tabs button.on{color:var(--acc);border-color:var(--acc)}
+.hero{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:24px 0 18px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.stat .v{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.1}.stat .l{color:var(--mut);font-size:12px;margin-top:4px}
+.stat .s{font-size:12px;color:var(--mut);margin-top:2px}
+.grid{display:grid;gap:16px;margin-bottom:16px}.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}.g21{grid-template-columns:1fr 2fr}.g12{grid-template-columns:2fr 1fr}
+@media(max-width:820px){.g21,.g12{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+.card h2{margin:0 0 4px;font-size:15px;font-weight:600}.card .hint{color:var(--mut);font-size:12px;margin-bottom:12px}
+.tab{display:none}.tab.on{display:block;animation:fade .2s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+.chart{position:relative;height:260px}.chart.sm{height:220px}
+.empty{color:var(--mut);padding:24px 0;text-align:center}
+/* rows */
+.row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}.row:first-of-type{border-top:0}
+.row .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .m{color:var(--mut);font-size:12px;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:6px;font:500 12px 'JetBrains Mono',monospace;padding:2px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);flex:none}
+.badge i{width:8px;height:8px;border-radius:50%}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;background:var(--panel2);color:var(--mut);margin-left:4px}
+.rec{background:var(--panel2);border-radius:12px;padding:12px 14px}.rec h3{margin:0 0 6px;font-size:13px;display:flex;justify-content:space-between;gap:8px}
+.rec h3 span{color:var(--mut);font-weight:400}
+/* bars */
+.bar{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:13px}.bar .n{width:130px;flex:none;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{flex:1;height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}.track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc2),var(--acc))}
+.bar b{font-weight:500;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+/* heatmap */
+.heat-wrap{overflow-x:auto;padding-bottom:6px}
+.months{display:grid;grid-auto-flow:column;grid-auto-columns:14px;gap:3px;font-size:10px;color:var(--mut);height:14px;margin-left:0}
+.heat{display:grid;grid-template-rows:repeat(7,11px);grid-auto-flow:column;grid-auto-columns:11px;gap:3px;margin-top:3px}
+.heat div{border-radius:3px;background:var(--h0)}.heat .v1{background:var(--h1)}.heat .v2{background:var(--h2)}.heat .v3{background:var(--h3)}.heat .v4{background:var(--h4)}.heat .x{visibility:hidden}
+.legend{display:flex;gap:4px;align-items:center;font-size:11px;color:var(--mut);justify-content:flex-end;margin-top:8px}.legend i{width:11px;height:11px;border-radius:3px;display:block}
+/* ring */
+.ring{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.ring svg{width:130px;height:130px;flex:none}
+.ring .big{font-size:26px;font-weight:700}.ring .ok{color:var(--ok)}
+.node{border:1px solid var(--line);border-radius:8px;padding:6px 4px;text-align:center;font:500 12px 'JetBrains Mono',monospace;cursor:pointer;position:relative;overflow:hidden;background:var(--panel2)}
+.node i{position:absolute;left:0;bottom:0;height:3px;background:var(--acc)}
+.node.mastered{background:color-mix(in srgb,var(--ok) 18%,var(--panel));border-color:var(--ok);color:var(--ok)}.node.mastered i{background:var(--ok)}
+.node.locked{opacity:.4;cursor:default}.node.sel{outline:2px solid var(--acc);outline-offset:1px}
+.tree{display:grid;grid-template-columns:minmax(120px,170px) repeat(5,minmax(58px,1fr));gap:6px;align-items:center}
+.tree .th{font-size:11px;color:var(--mut);text-align:center}.tree .tg{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tree .cat{grid-column:1/-1;font-weight:600;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin-top:14px}
+.chip{display:inline-block;cursor:pointer;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);margin:0 6px 6px 0;font-size:12px}.chip:hover{border-color:var(--acc)}
+.mono{font-family:'JetBrains Mono',monospace}
+</style></head><body>
+<header>
+ <div class="top">
+  <div class="brand"><span class="logo"><i></i><i></i><i></i></span>Codeforces Progress</div>
+  <div class="grow"></div>
+  <div><div class="who" id="who"></div><div class="upd" id="upd"></div></div>
+  <button class="icon-btn" id="theme" title="Toggle theme">◐</button>
+ </div>
+ <nav class="tabs" id="tabs"></nav>
+</header>
+<div class="wrap">
+ <section class="hero" id="hero"></section>
+ <section class="tab" id="tab-overview"></section>
+ <section class="tab" id="tab-road"></section>
+ <section class="tab" id="tab-skills"></section>
+ <section class="tab" id="tab-practice"></section>
+ <section class="tab" id="tab-contests"></section>
+ <section class="tab" id="tab-stats"></section>
+</div>
+<script>
+const D=/*DATA*/null;
+const DAY=864e5;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const day=t=>new Date(t).toISOString().slice(0,10);
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const rc=r=>!r?'#9ca3af':r<1200?'#9ca3af':r<1400?'#22c55e':r<1600?'#06b6d4':r<1900?'#3b82f6':r<2100?'#a855f7':r<2400?'#f59e0b':'#ef4444';
+const badge=r=>`<span class="badge"><i style="background:${rc(r)}"></i>${r||'?'}</span>`;
+const plink=p=>`<a href="https://codeforces.com/problemset/problem/${p.contestId}/${p.index}" target="_blank" rel="noopener">${esc(p.key)} · ${esc(p.name)}</a>`;
+const bars=(items,fmt=v=>v)=>{const m=Math.max(...items.map(i=>i.v),1);return items.map(i=>`<div class="bar"><span class="n" title="${esc(i.k)}">${esc(i.k)}</span><div class="track"><i style="width:${i.v/m*100}%"></i></div><b>${fmt(i.v,i)}</b></div>`).join('')||'<div class="empty">Nothing yet</div>'};
+const empty=t=>`<div class="empty">${t}</div>`;
+const RANK={newbie:'#9ca3af',pupil:'#22c55e',specialist:'#06b6d4',expert:'#3b82f6','candidate master':'#a855f7',master:'#f59e0b','international master':'#f59e0b','grandmaster':'#ef4444','international grandmaster':'#ef4444','legendary grandmaster':'#ef4444'};
+
+// ---------- header + hero ----------
+const STAGES=[[0,'Newbie','#9ca3af'],[1200,'Pupil','#22c55e'],[1400,'Specialist','#06b6d4'],[1600,'Expert','#3b82f6'],[1900,'Candidate Master','#a855f7'],[2100,'Master','#f59e0b'],[2300,'International Master','#f59e0b'],[2400,'Grandmaster','#ef4444']];
+const R=D.road,tStage=STAGES.find(s=>s[0]===R.target),tLabel=R.target===2400?'Red':tStage?tStage[1]:R.target;
+
+$('who').innerHTML=`<span style="color:${RANK[D.rank.toLowerCase()]||'var(--fg)'}">${esc(D.handle)}</span> <span class="upd">· ${esc(D.rank)}</span>`;
+$('upd').textContent='Updated '+D.generated.slice(0,16).replace('T',' ')+' UTC';
+
+const todayT=Date.parse(day(Date.now())),dow=(new Date(todayT).getUTCDay()+6)%7,thisMon=todayT-dow*DAY;
+const weekSum=s=>{let n=0;for(let i=0;i<7;i++)n+=D.byDay[day(s+i*DAY)]||0;return n};
+const thisWeek=weekSum(thisMon);
+$('hero').innerHTML=`
+ <div class="stat"><div class="v">${D.totalSolved}</div><div class="l">Problems solved</div></div>
+ <div class="stat"><div class="v">${D.rating||'—'}</div><div class="l">Rating</div><div class="s">max ${D.maxRating||'—'}</div></div>
+ <div class="stat"><div class="v">${D.streak.current}<small style="font-size:16px;color:var(--mut)"> d</small></div><div class="l">Current streak</div><div class="s">best ${D.streak.best} d</div></div>
+ <div class="stat"><div class="v">${thisWeek}<small style="font-size:16px;color:var(--mut)"> / ${D.goal}</small></div><div class="l">This week</div></div>
+ <div class="stat"><div class="v">${pct(R.done,R.quotaTotal)}<small style="font-size:16px;color:var(--mut)">%</small></div><div class="l">Road to ${tLabel}</div><div class="s">${R.remaining} problems to go</div></div>
+ <div class="stat"><div class="v">${(D.stats.acceptRate*100).toFixed(0)}<small style="font-size:16px;color:var(--mut)">%</small></div><div class="l">Acceptance</div><div class="s">${D.stats.submissions} submissions</div></div>`;
+
+// ---------- tabs ----------
+const TABS=[['overview','Overview'],['road','Road to '+tLabel],['skills','Skill tree'],['practice','Practice'],['contests','Contests'],['stats','Stats']];
+$('tabs').innerHTML=TABS.map(([id,n])=>`<button data-t="${id}">${n}</button>`).join('');
+function show(id){if(!TABS.some(t=>t[0]===id))id='overview';
+ TABS.forEach(([t])=>{$('tab-'+t).classList.toggle('on',t===id)});
+ document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
+ try{history.replaceState(null,'','#'+id)}catch{}
+ setTimeout(()=>charts.forEach(c=>c.resize()),0)}
+$('tabs').onclick=e=>{if(e.target.dataset.t)show(e.target.dataset.t)};
+
+// ---------- static markup ----------
+const ringSvg=(cur,goal)=>{const r=52,c=2*Math.PI*r,f=Math.min(1,cur/goal);
+ return `<svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="${r}" fill="none" stroke="var(--panel2)" stroke-width="12"/><circle cx="65" cy="65" r="${r}" fill="none" stroke="${cur>=goal?'var(--ok)':'var(--acc)'}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 65 65)"/><text x="65" y="71" text-anchor="middle" style="font:700 22px Inter;fill:var(--fg)">${pct(cur,goal)}%</text></svg>`};
+
+function heatmap(){const weeks=53,end=todayT,start=end-new Date(end).getUTCDay()*DAY-(weeks-1)*7*DAY;
+ let cells='',months='',lastM=-1;
+ for(let w=0;w<weeks;w++){const d0=new Date(start+w*7*DAY),m=d0.getUTCMonth();
+  months+=`<div style="width:14px;overflow:visible;white-space:nowrap">${m!==lastM?d0.toLocaleString('en',{month:'short',timeZone:'UTC'}):''}</div>`;lastM=m;
+  for(let i=0;i<7;i++){const t=start+(w*7+i)*DAY,d=day(t),n=D.byDay[d]||0;
+   cells+=t>end?`<div class="x"></div>`:`<div class="${n?'v'+Math.min(n,4):''}" title="${d}: ${n} solved"></div>`}}
+ const total=Object.entries(D.byDay).filter(([d])=>Date.parse(d)>=start).reduce((a,[,n])=>a+n,0);
+ return `<div class="hint">${total} solves in the last year</div><div class="heat-wrap"><div class="months">${months}</div><div class="heat">${cells}</div></div>
+  <div class="legend">Less <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i> More</div>`}
+
+$('tab-overview').innerHTML=`
+ <div class="grid g21">
+  <div class="card"><h2>Weekly goal</h2><div class="hint">Weeks start Monday (UTC)</div>
+   <div class="ring">${ringSvg(thisWeek,D.goal)}<div><div class="big ${thisWeek>=D.goal?'ok':''}">${thisWeek} / ${D.goal}</div><div class="hint">${thisWeek>=D.goal?'Goal reached 🎉':(D.goal-thisWeek)+' to go'}</div></div></div></div>
+  <div class="card"><h2>Last 8 weeks</h2><div class="hint">Green bars hit the goal</div><div class="chart sm"><canvas id="c-weeks"></canvas></div></div>
+ </div>
+ <div class="card" style="margin-bottom:16px"><h2>Activity</h2>${heatmap()}</div>
+ <div class="grid g12">
+  <div class="card"><h2>Rating history</h2>${D.ratingHistory.length>1?'<div class="chart"><canvas id="c-rating"></canvas></div>':empty(D.ratingHistory.length?'One rated contest so far — the chart appears after your second.':'No rated contests yet. Your rating chart will appear after your first.')}</div>
+  <div class="card"><h2>Recent solves</h2>${D.recent.slice(0,8).map(s=>`<div class="row"><span class="t">${plink(s)}</span>${badge(s.rating)}<span class="m">${day(s.time*1000).slice(5)}</span></div>`).join('')}</div>
+ </div>`;
+
+const eff=D.rating||D.level,estimated=!D.rating;
+const curIdx=STAGES.reduce((a,s,i)=>eff>=s[0]?i:a,0);
+const eta=R.etaWeeks===null?'Solve a few problems to get a pace estimate':R.etaWeeks<=8?R.etaWeeks+' weeks':'about '+(R.etaWeeks/4.345).toFixed(1)+' months';
+$('tab-road').innerHTML=`
+ <div class="card" style="margin-bottom:16px"><h2>Rank ladder</h2>
+  <div class="hint">${estimated?'You are unrated, so your position is estimated from the problems you solve (about '+D.level+').':'Current rating '+D.rating+'.'} Target: <b style="color:var(--fg)">${R.target}</b> (${tLabel}).</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap">${STAGES.map((s,i)=>`<div style="flex:1;min-width:110px;padding:10px 12px;border-radius:10px;border:1px solid ${i===curIdx?s[2]:'var(--line)'};background:${i<curIdx?'var(--panel2)':'transparent'};opacity:${i>curIdx&&s[0]!==R.target?.7:1}">
+   <div style="font-size:11px;color:var(--mut)">${s[0]||'<1200'}${s[0]===R.target?' · target':''}</div><div style="font-weight:600;color:${s[2]}">${s[1]}</div>
+   <div style="font-size:11px;color:var(--mut)">${i<curIdx?'✓ passed':i===curIdx?'← you are here':''}</div></div>`).join('')}</div></div>
+ <div class="grid g2">
+  <div class="card"><h2>Ladder progress</h2><div class="hint">Heuristic quota of problems per rating band up to ${R.target}. Edit "quotas" in config.json to tune.</div>
+   <div class="ring">${ringSvg(R.done,R.quotaTotal)}<div><div class="big">${R.done} / ${R.quotaTotal}</div><div class="hint">${R.remaining} problems left</div></div></div></div>
+  <div class="card"><h2>Pace</h2><div class="hint">Based on your last 4 weeks</div>
+   <div class="big">${R.perWeek.toFixed(1)}<small style="font-size:14px;color:var(--mut)"> / week</small></div>
+   <div class="hint" style="margin-top:8px">At this pace you finish the ladder in <b style="color:var(--fg)">${eta}</b>. Ladder completion is necessary, not sufficient — rated contests are what move your rating.</div>
+   <div class="hint">Raising your weekly goal to ${Math.max(D.goal,Math.ceil(R.perWeek*1.5))} would cut that noticeably.</div></div>
+ </div>
+ <div class="card" style="margin-bottom:16px"><h2>Problems per rating band</h2><div class="hint">Filled bars = solved, out of the quota for that band</div>
+  ${R.bands.map(b=>`<div class="bar"><span class="n">${badge(b.band)}</span><div class="track"><i style="width:${Math.min(100,pct(b.solved,b.quota))}%;background:${rc(b.band)}"></i></div><b>${b.solved}/${b.quota}</b></div>`).join('')}</div>
+ <div class="card"><h2>Next on the ladder</h2><div class="hint">Most-solved unsolved problems in the first bands you haven't filled</div>
+  <div class="grid g2" style="margin:0">${R.ladderNext.map(l=>`<div class="rec"><h3>Band ${l.band}<span>${l.solved}/${l.quota}</span></h3>${l.problems.map(p=>`<div class="row"><span class="t">${plink(p)}</span><span class="m">${p.solvedCount.toLocaleString()} solved</span></div>`).join('')||empty('No problems')}</div>`).join('')||empty('Ladder complete!')}</div></div>`;
+
+const T=D.tree;let sel=T.focus[0]?{tag:T.focus[0].tag,tier:T.focus[0].tier}:null;
+const findTag=t=>T.skillTree.flatMap(c=>c.tags).find(x=>x.tag===t);
+function drawSkills(){
+ const node=(t,n,i)=>`<div class="node ${n.status} ${sel&&sel.tag===t.tag&&sel.tier===i?'sel':''}" data-tag="${esc(t.tag)}" data-tier="${i}" title="${n.lo}–${n.hi}: ${n.solved}/${n.quota}">${n.status==='mastered'?'✓ ':''}${Math.min(n.solved,n.quota)}/${n.quota}<i style="width:${Math.min(100,pct(n.solved,n.quota))}%"></i></div>`;
+ const detail=(()=>{if(!sel)return empty('Every unlocked tier is mastered.');const t=findTag(sel.tag),n=t.tiers[sel.tier];
+  return `<h2>${esc(t.tag)} · ${n.lo}–${n.hi} <span class="tag">${n.status}</span></h2><div class="hint">${n.solved}/${n.quota} solved in this tier${n.status==='locked'?'. Fill the previous tier to about 60% to unlock.':''}</div>${n.problems.map(p=>`<div class="row"><span class="t">${plink(p)}</span>${badge(p.rating)}<span class="m">${p.solvedCount.toLocaleString()} solved</span></div>`).join('')||empty(n.status==='mastered'?'Mastered — nothing more needed here.':'Unlock this tier first.')}`})();
+ $('tab-skills').innerHTML=`
+  <div class="grid g2">
+   <div class="card"><h2>Skill tree</h2><div class="hint">Five rating tiers per tag. Each tier unlocks when the previous one is 60% done.</div>
+    <div class="big">${T.mastered} <small style="font-size:14px;color:var(--mut)">/ ${T.total} tiers mastered</small></div>
+    <div class="track" style="margin-top:10px"><i style="width:${pct(T.mastered,T.total)}%"></i></div></div>
+   <div class="card"><h2>Focus now</h2><div class="hint">Lowest tiers with the least progress first</div>
+    ${T.focus.map(f=>{const n=findTag(f.tag).tiers[f.tier];return `<span class="chip" data-tag="${esc(f.tag)}" data-tier="${f.tier}">${esc(f.tag)} · ${n.lo}–${n.hi} · ${n.solved}/${n.quota}</span>`}).join('')||empty('Nothing active')}</div>
+  </div>
+  <div class="card" style="margin-bottom:16px">${detail}</div>
+  <div class="card"><div class="tree"><div></div>${T.tiers.map(x=>`<div class="th">${x}</div>`).join('')}
+   ${T.skillTree.map(c=>`<div class="cat">${c.category}</div>${c.tags.map(t=>`<div class="tg" title="${esc(t.tag)}">${esc(t.tag)}</div>${t.tiers.map((n,i)=>node(t,n,i)).join('')}`).join('')}`).join('')}</div></div>`;}
+$('tab-skills').onclick=e=>{const n=e.target.closest('[data-tag]');if(!n||n.classList.contains('locked'))return;sel={tag:n.dataset.tag,tier:+n.dataset.tier};drawSkills()};
+drawSkills();
+
+const tagCov=D.tagCoverage;
+$('tab-practice').innerHTML=`
+ <div class="card" style="margin-bottom:16px"><h2>Next problems to solve</h2>
+  <div class="hint">Your recent level is about ${D.level}. Unsolved, popular problems ${D.level}–${D.level+200}+ in your weakest tags.</div>
+  <div class="grid g2" style="margin:0">${D.recommendations.map(r=>`<div class="rec"><h3>${esc(r.tag)}<span>${r.solved}/${r.total}</span></h3>
+   ${r.problems.map(p=>`<div class="row"><span class="t">${plink(p)}</span>${badge(p.rating)}</div>`).join('')||empty('No matches')}</div>`).join('')}</div></div>
+ <div class="grid g2">
+  <div class="card"><h2>Tag coverage</h2><div class="hint">Share of rated problems solved, weakest first</div>${bars(tagCov.slice(0,14).map(t=>({k:t.tag,v:pct(t.solved,t.total)||0,t})),(v,i)=>`${i.t.solved}/${i.t.total}`)}</div>
+  <div class="card"><h2>Solved by problem rating</h2><div class="chart"><canvas id="c-byrating"></canvas></div></div>
+ </div>
+ <div class="card"><h2>Tried but not solved <span class="tag">${D.unsolvedTotal}</span></h2>
+  ${D.unsolved.map(p=>`<div class="row"><span class="t">${plink(p)}</span>${badge(p.rating)}<span class="m">${p.tries} tries · ${day(p.time*1000)}</span></div>`).join('')||empty('Nothing pending — every problem you tried is solved.')}</div>`;
+
+const until=t=>{const s=t-Date.now()/1000,d=Math.floor(s/86400),h=Math.floor(s%86400/3600);return d>0?`in ${d}d ${h}h`:`in ${h}h ${Math.floor(s%3600/60)}m`};
+$('tab-contests').innerHTML=`<div class="grid g2">
+ <div class="card"><h2>Upcoming contests</h2>${D.upcoming.map(c=>`<div class="row"><span class="t"><a href="https://codeforces.com/contest/${c.id}" target="_blank" rel="noopener">${esc(c.name)}</a><div class="m">${new Date(c.start*1000).toLocaleString([],{dateStyle:'medium',timeStyle:'short'})} · ${Math.round(c.duration/360)/10}h</div></span><span class="badge">${until(c.start)}</span></div>`).join('')||empty('None scheduled')}</div>
+ <div class="card"><h2>Contests entered</h2>${D.contestsEntered.map(c=>`<div class="row"><span class="t"><a href="https://codeforces.com/contest/${c.id}" target="_blank" rel="noopener">${esc(c.name)}</a></span><span class="m">${c.solved} solved</span>${c.delta===null?'<span class="badge">unrated</span>':`<span class="badge" style="color:${c.delta>=0?'var(--ok)':'var(--bad)'}">${c.delta>0?'+':''}${c.delta}</span>`}</div>`).join('')||empty('No contest participation yet — your first one is a great next step.')}</div></div>
+ <div class="card"><h2>Where you solved</h2><div class="hint">In contest vs practice vs virtual</div>${bars(Object.entries(D.byType).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({k:({PRACTICE:'Practice',CONTESTANT:'In contest',VIRTUAL:'Virtual',OUT_OF_COMPETITION:'Out of competition',MANAGER:'Manager'})[k]||k,v})))}</div>`;
+
+$('tab-stats').innerHTML=`<div class="grid g2">
+ <div class="card"><h2>Verdicts</h2><div class="hint">${D.stats.avgWrongBeforeAccept.toFixed(1)} failed tries per solved problem</div><div class="chart"><canvas id="c-verdicts"></canvas></div></div>
+ <div class="card"><h2>Top tags</h2><div class="chart"><canvas id="c-tags"></canvas></div></div></div>
+ <div class="card"><h2>Languages</h2>${bars(Object.entries(D.stats.languages).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>({k,v})))}</div>`;
+
+// ---------- charts ----------
+const charts=[];
+function drawCharts(){
+ charts.splice(0).forEach(c=>c.destroy());
+ if(!window.Chart){document.querySelectorAll('canvas').forEach(c=>c.replaceWith(Object.assign(document.createElement('div'),{className:'empty',textContent:'Charts need internet access (Chart.js CDN).'})));return}
+ const fg=css('--mut'),line=css('--line'),acc=css('--acc'),ok=css('--ok');
+ Chart.defaults.color=fg;Chart.defaults.font.family='Inter, sans-serif';Chart.defaults.borderColor=line;
+ const mk=(id,cfg)=>{const c=$(id);if(c)charts.push(new Chart(c,{...cfg,options:{maintainAspectRatio:false,...cfg.options}}))};
+ const noLegend={plugins:{legend:{display:false}}};
+
+ const weeks=[];for(let w=7;w>=0;w--){const s=thisMon-w*7*DAY;weeks.push({l:day(s).slice(5),n:weekSum(s)})}
+ mk('c-weeks',{type:'bar',data:{labels:weeks.map(w=>w.l),datasets:[{data:weeks.map(w=>w.n),backgroundColor:weeks.map(w=>w.n>=D.goal?ok:acc),borderRadius:6,maxBarThickness:36}]},
+  options:{...noLegend,scales:{y:{beginAtZero:true,ticks:{precision:0}},x:{grid:{display:false}}}}});
+
+ const h=D.ratingHistory;
+ mk('c-rating',{type:'line',data:{labels:h.map(r=>day(r.t*1000)),datasets:[{data:h.map(r=>r.new),borderColor:acc,backgroundColor:acc+'22',fill:true,tension:.25,pointRadius:4,pointBackgroundColor:acc}]},
+  options:{...noLegend,plugins:{legend:{display:false},tooltip:{callbacks:{title:i=>h[i[0].dataIndex].contest,label:i=>`${h[i.dataIndex].old} → ${h[i.dataIndex].new} (rank ${h[i.dataIndex].rank})`}}},scales:{x:{grid:{display:false}}}}});
+
+ const br=Object.entries(D.byRating).map(([k,v])=>[+k,v]).sort((a,b)=>a[0]-b[0]);
+ mk('c-byrating',{type:'bar',data:{labels:br.map(([k])=>k||'unrated'),datasets:[{data:br.map(([,v])=>v),backgroundColor:br.map(([k])=>rc(k)),borderRadius:6}]},
+  options:{...noLegend,scales:{y:{beginAtZero:true,ticks:{precision:0}},x:{grid:{display:false}}}}});
+
+ const vc={OK:ok,WRONG_ANSWER:'#ef4444',RUNTIME_ERROR:'#f59e0b',COMPILATION_ERROR:'#a855f7',TIME_LIMIT_EXCEEDED:'#06b6d4',MEMORY_LIMIT_EXCEEDED:'#3b82f6'};
+ const v=Object.entries(D.stats.verdicts).sort((a,b)=>b[1]-a[1]);
+ mk('c-verdicts',{type:'doughnut',data:{labels:v.map(([k])=>k.replace(/_/g,' ').toLowerCase()),datasets:[{data:v.map(([,n])=>n),backgroundColor:v.map(([k])=>vc[k]||'#9ca3af'),borderWidth:0}]},
+  options:{cutout:'62%',plugins:{legend:{position:'right',labels:{boxWidth:10,usePointStyle:true}}}}});
+
+ const t=Object.entries(D.byTag).sort((a,b)=>b[1]-a[1]).slice(0,10);
+ mk('c-tags',{type:'bar',data:{labels:t.map(([k])=>k),datasets:[{data:t.map(([,n])=>n),backgroundColor:acc,borderRadius:6}]},
+  options:{indexAxis:'y',...noLegend,scales:{x:{beginAtZero:true,ticks:{precision:0}},y:{grid:{display:false}}}}});
+}
+
+// ---------- theme ----------
+function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('cf-theme',t)}catch{}}
+let saved=null;try{saved=localStorage.getItem('cf-theme')}catch{}
+setTheme(saved||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+$('theme').onclick=()=>{setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');drawCharts()};
+
+drawCharts();
+show(location.hash.slice(1)||'overview');
+</script></body></html>
