@@ -1,0 +1,1684 @@
+{
+ "books": [
+  {
+   "id": 1,
+   "title": "CP4 Book 1",
+   "chapters": [
+    {
+     "id": "1",
+     "title": "Introduction",
+     "page": 31,
+     "sections": [
+      {
+       "id": "1.1",
+       "title": "Competitive Programming",
+       "page": 31,
+       "depth": 1
+      },
+      {
+       "id": "1.2",
+       "title": "The Competitions",
+       "page": 33,
+       "depth": 1
+      },
+      {
+       "id": "1.2.1",
+       "title": "International Olympiad in Informatics (IOI)",
+       "page": 33,
+       "depth": 2
+      },
+      {
+       "id": "1.2.2",
+       "title": "International Collegiate Programming Contests (ICPC)",
+       "page": 34,
+       "depth": 2
+      },
+      {
+       "id": "1.2.3",
+       "title": "Other Programming Contests",
+       "page": 36,
+       "depth": 2
+      },
+      {
+       "id": "1.3",
+       "title": "Tips to be Competitive",
+       "page": 36,
+       "depth": 1
+      },
+      {
+       "id": "1.3.1",
+       "title": "Tip 1: Type Code Faster!",
+       "page": 36,
+       "depth": 2
+      },
+      {
+       "id": "1.3.2",
+       "title": "Tip 2: Quickly Identify Problem Types",
+       "page": 38,
+       "depth": 2
+      },
+      {
+       "id": "1.3.3",
+       "title": "Tip 3: Do Algorithm Analysis",
+       "page": 40,
+       "depth": 2
+      },
+      {
+       "id": "1.3.4",
+       "title": "Tip 4: Master Programming Languages",
+       "page": 45,
+       "depth": 2
+      },
+      {
+       "id": "1.3.5",
+       "title": "Tip 5: Master the Art of Testing Code",
+       "page": 48,
+       "depth": 2
+      },
+      {
+       "id": "1.3.6",
+       "title": "Tip 6: Practice and More Practice",
+       "page": 51,
+       "depth": 2
+      },
+      {
+       "id": "1.3.7",
+       "title": "Tip 7: Team Work (for ICPC)",
+       "page": 52,
+       "depth": 2
+      },
+      {
+       "id": "1.4",
+       "title": "Getting Started: The Easy Problems",
+       "page": 53,
+       "depth": 1
+      },
+      {
+       "id": "1.4.1",
+       "title": "Anatomy of a Programming Contest Problem",
+       "page": 53,
+       "depth": 2
+      },
+      {
+       "id": "1.4.2",
+       "title": "Typical Input/Output Routines",
+       "page": 53,
+       "depth": 2
+      },
+      {
+       "id": "1.4.3",
+       "title": "Time to Start the Journey",
+       "page": 56,
+       "depth": 2
+      },
+      {
+       "id": "1.4.4",
+       "title": "Getting Our First Accepted (AC) Verdict",
+       "page": 57,
+       "depth": 2
+      },
+      {
+       "id": "1.5",
+       "title": "Basic String Processing Skills",
+       "page": 61,
+       "depth": 1
+      },
+      {
+       "id": "1.6",
+       "title": "The Ad Hoc Problems",
+       "page": 63,
+       "depth": 1
+      }
+     ]
+    },
+    {
+     "id": "2",
+     "title": "Data Structures and Libraries",
+     "page": 83,
+     "sections": [
+      {
+       "id": "2.1",
+       "title": "Overview and Motivation",
+       "page": 83,
+       "depth": 1
+      },
+      {
+       "id": "2.2",
+       "title": "Linear DS with Built-in Libraries",
+       "page": 85,
+       "depth": 1
+      },
+      {
+       "id": "2.2.1",
+       "title": "Array",
+       "page": 85,
+       "depth": 2
+      },
+      {
+       "id": "2.2.2",
+       "title": "Special Sorting Problems",
+       "page": 89,
+       "depth": 2
+      },
+      {
+       "id": "2.2.3",
+       "title": "Bitmask",
+       "page": 92,
+       "depth": 2
+      },
+      {
+       "id": "2.2.4",
+       "title": "Big Integer (Python & Java)",
+       "page": 96,
+       "depth": 2
+      },
+      {
+       "id": "2.2.5",
+       "title": "Linked Data Structures",
+       "page": 99,
+       "depth": 2
+      },
+      {
+       "id": "2.2.6",
+       "title": "Special Stack-based Problems",
+       "page": 101,
+       "depth": 2
+      },
+      {
+       "id": "2.3",
+       "title": "Non-Linear DS with Built-in Libraries",
+       "page": 108,
+       "depth": 1
+      },
+      {
+       "id": "2.3.1",
+       "title": "Binary Heap (Priority Queue)",
+       "page": 108,
+       "depth": 2
+      },
+      {
+       "id": "2.3.2",
+       "title": "Hash Table",
+       "page": 111,
+       "depth": 2
+      },
+      {
+       "id": "2.3.3",
+       "title": "Balanced Binary Search Tree (bBST)",
+       "page": 114,
+       "depth": 2
+      },
+      {
+       "id": "2.3.4",
+       "title": "Order Statistics Tree",
+       "page": 117,
+       "depth": 2
+      },
+      {
+       "id": "2.4",
+       "title": "DS with Our Own Libraries",
+       "page": 124,
+       "depth": 1
+      },
+      {
+       "id": "2.4.1",
+       "title": "Graph",
+       "page": 124,
+       "depth": 2
+      },
+      {
+       "id": "2.4.2",
+       "title": "Union-Find Disjoint Sets",
+       "page": 129,
+       "depth": 2
+      },
+      {
+       "id": "2.4.3",
+       "title": "Fenwick (Binary Indexed) Tree",
+       "page": 134,
+       "depth": 2
+      },
+      {
+       "id": "2.4.4",
+       "title": "Segment Tree",
+       "page": 144,
+       "depth": 2
+      }
+     ]
+    },
+    {
+     "id": "3",
+     "title": "Problem Solving Paradigms",
+     "page": 159,
+     "sections": [
+      {
+       "id": "3.1",
+       "title": "Overview and Motivation",
+       "page": 159,
+       "depth": 1
+      },
+      {
+       "id": "3.2",
+       "title": "Complete Search",
+       "page": 160,
+       "depth": 1
+      },
+      {
+       "id": "3.2.1",
+       "title": "Iterative Complete Search",
+       "page": 161,
+       "depth": 2
+      },
+      {
+       "id": "3.2.2",
+       "title": "Recursive Complete Search",
+       "page": 165,
+       "depth": 2
+      },
+      {
+       "id": "3.2.3",
+       "title": "Complete Search Tips",
+       "page": 169,
+       "depth": 2
+      },
+      {
+       "id": "3.2.4",
+       "title": "Complete Search in Programming Contests",
+       "page": 173,
+       "depth": 2
+      },
+      {
+       "id": "3.3",
+       "title": "Divide and Conquer",
+       "page": 178,
+       "depth": 1
+      },
+      {
+       "id": "3.3.1",
+       "title": "Interesting Usages of Binary Search",
+       "page": 178,
+       "depth": 2
+      },
+      {
+       "id": "3.3.2",
+       "title": "Ternary Search",
+       "page": 182,
+       "depth": 2
+      },
+      {
+       "id": "3.3.3",
+       "title": "Divide and Conquer in Programming Contests",
+       "page": 183,
+       "depth": 2
+      },
+      {
+       "id": "3.4",
+       "title": "Greedy",
+       "page": 185,
+       "depth": 1
+      },
+      {
+       "id": "3.4.1",
+       "title": "Examples",
+       "page": 185,
+       "depth": 2
+      },
+      {
+       "id": "3.4.2",
+       "title": "Greedy Algorithm in Programming Contests",
+       "page": 191,
+       "depth": 2
+      },
+      {
+       "id": "3.5",
+       "title": "Dynamic Programming",
+       "page": 194,
+       "depth": 1
+      },
+      {
+       "id": "3.5.1",
+       "title": "DP Illustration",
+       "page": 194,
+       "depth": 2
+      },
+      {
+       "id": "3.5.2",
+       "title": "Classical Examples",
+       "page": 203,
+       "depth": 2
+      },
+      {
+       "id": "3.5.3",
+       "title": "Non-Classical Examples",
+       "page": 214,
+       "depth": 2
+      },
+      {
+       "id": "3.5.4",
+       "title": "Dynamic Programming in Programming Contests",
+       "page": 217,
+       "depth": 2
+      }
+     ]
+    },
+    {
+     "id": "4",
+     "title": "Graph",
+     "page": 223,
+     "sections": [
+      {
+       "id": "4.1",
+       "title": "Overview and Motivation",
+       "page": 223,
+       "depth": 1
+      },
+      {
+       "id": "4.2",
+       "title": "Graph Traversal",
+       "page": 225,
+       "depth": 1
+      },
+      {
+       "id": "4.2.1",
+       "title": "Overview and Motivation",
+       "page": 225,
+       "depth": 2
+      },
+      {
+       "id": "4.2.2",
+       "title": "Depth First Search (DFS)",
+       "page": 225,
+       "depth": 2
+      },
+      {
+       "id": "4.2.3",
+       "title": "Breadth First Search (BFS)",
+       "page": 227,
+       "depth": 2
+      },
+      {
+       "id": "4.2.4",
+       "title": "Finding Connected Components (Undirected Graph)",
+       "page": 228,
+       "depth": 2
+      },
+      {
+       "id": "4.2.5",
+       "title": "Flood Fill (Implicit 2D Grid Graph)",
+       "page": 229,
+       "depth": 2
+      },
+      {
+       "id": "4.2.6",
+       "title": "Topological Sort (Directed Acyclic Graph)",
+       "page": 230,
+       "depth": 2
+      },
+      {
+       "id": "4.2.7",
+       "title": "Bipartite Graph Check (Undirected Graph)",
+       "page": 232,
+       "depth": 2
+      },
+      {
+       "id": "4.2.8",
+       "title": "Cycle Check (Directed Graph)",
+       "page": 233,
+       "depth": 2
+      },
+      {
+       "id": "4.2.9",
+       "title": "Finding Articulation Points and Bridges (Undirected Graph)",
+       "page": 235,
+       "depth": 2
+      },
+      {
+       "id": "4.2.10",
+       "title": "Finding Strongly Connected Components (Directed Graph)",
+       "page": 238,
+       "depth": 2
+      },
+      {
+       "id": "4.2.11",
+       "title": "Graph Traversal in Programming Contests",
+       "page": 241,
+       "depth": 2
+      },
+      {
+       "id": "4.3",
+       "title": "Minimum Spanning Tree (MST)",
+       "page": 245,
+       "depth": 1
+      },
+      {
+       "id": "4.3.1",
+       "title": "Overview and Motivation",
+       "page": 245,
+       "depth": 2
+      },
+      {
+       "id": "4.3.2",
+       "title": "Kruskal’s Algorithm",
+       "page": 245,
+       "depth": 2
+      },
+      {
+       "id": "4.3.3",
+       "title": "Prim’s Algorithm",
+       "page": 247,
+       "depth": 2
+      },
+      {
+       "id": "4.3.4",
+       "title": "Other Applications",
+       "page": 248,
+       "depth": 2
+      },
+      {
+       "id": "4.3.5",
+       "title": "MST in Programming Contests",
+       "page": 251,
+       "depth": 2
+      },
+      {
+       "id": "4.4",
+       "title": "Single-Source Shortest Paths (SSSP)",
+       "page": 253,
+       "depth": 1
+      },
+      {
+       "id": "4.4.1",
+       "title": "Overview and Motivation",
+       "page": 253,
+       "depth": 2
+      },
+      {
+       "id": "4.4.2",
+       "title": "On Unweighted Graph: BFS",
+       "page": 253,
+       "depth": 2
+      },
+      {
+       "id": "4.4.3",
+       "title": "On Weighted Graph: Dijkstra’s",
+       "page": 257,
+       "depth": 2
+      },
+      {
+       "id": "4.4.4",
+       "title": "On Small Graph (with Negative Cycle): Bellman-Ford",
+       "page": 264,
+       "depth": 2
+      },
+      {
+       "id": "4.4.5",
+       "title": "SSSP in Programming Contests",
+       "page": 267,
+       "depth": 2
+      },
+      {
+       "id": "4.5",
+       "title": "All-Pairs Shortest Paths (APSP)",
+       "page": 271,
+       "depth": 1
+      },
+      {
+       "id": "4.5.1",
+       "title": "Overview and Motivation",
+       "page": 271,
+       "depth": 2
+      },
+      {
+       "id": "4.5.2",
+       "title": "Floyd-Warshall Algorithm",
+       "page": 272,
+       "depth": 2
+      },
+      {
+       "id": "4.5.3",
+       "title": "Other Applications",
+       "page": 274,
+       "depth": 2
+      },
+      {
+       "id": "4.5.4",
+       "title": "APSP in Programming Contests",
+       "page": 276,
+       "depth": 2
+      },
+      {
+       "id": "4.6",
+       "title": "Special Graphs",
+       "page": 279,
+       "depth": 1
+      },
+      {
+       "id": "4.6.1",
+       "title": "Directed Acyclic Graph",
+       "page": 279,
+       "depth": 2
+      },
+      {
+       "id": "4.6.2",
+       "title": "Tree",
+       "page": 285,
+       "depth": 2
+      },
+      {
+       "id": "4.6.3",
+       "title": "Bipartite Graph",
+       "page": 287,
+       "depth": 2
+      },
+      {
+       "id": "4.6.4",
+       "title": "Eulerian Graph",
+       "page": 290,
+       "depth": 2
+      },
+      {
+       "id": "4.6.5",
+       "title": "Special Graphs in Programming Contests",
+       "page": 293,
+       "depth": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "title": "CP4 Book 2",
+   "chapters": [
+    {
+     "id": "5",
+     "title": "Mathematics",
+     "page": 9,
+     "sections": [
+      {
+       "id": "5.1",
+       "title": "Overview and Motivation",
+       "page": 9,
+       "depth": 1
+      },
+      {
+       "id": "5.2",
+       "title": "Ad Hoc Mathematical Problems",
+       "page": 10,
+       "depth": 1
+      },
+      {
+       "id": "5.3",
+       "title": "Number Theory",
+       "page": 18,
+       "depth": 1
+      },
+      {
+       "id": "5.3.1",
+       "title": "Prime Numbers",
+       "page": 18,
+       "depth": 2
+      },
+      {
+       "id": "5.3.2",
+       "title": "Probabilistic Prime Testing (Java Only)",
+       "page": 20,
+       "depth": 2
+      },
+      {
+       "id": "5.3.3",
+       "title": "Finding Prime Factors with Optimized Trial Divisions",
+       "page": 20,
+       "depth": 2
+      },
+      {
+       "id": "5.3.4",
+       "title": "Functions Involving Prime Factors",
+       "page": 22,
+       "depth": 2
+      },
+      {
+       "id": "5.3.5",
+       "title": "Modified Sieve",
+       "page": 24,
+       "depth": 2
+      },
+      {
+       "id": "5.3.6",
+       "title": "Greatest Common Divisor & Least Common Multiple",
+       "page": 24,
+       "depth": 2
+      },
+      {
+       "id": "5.3.7",
+       "title": "Factorial",
+       "page": 25,
+       "depth": 2
+      },
+      {
+       "id": "5.3.8",
+       "title": "Working with Prime Factors",
+       "page": 25,
+       "depth": 2
+      },
+      {
+       "id": "5.3.9",
+       "title": "Modular Arithmetic",
+       "page": 26,
+       "depth": 2
+      },
+      {
+       "id": "5.3.10",
+       "title": "Extended Euclidean Algorithm",
+       "page": 28,
+       "depth": 2
+      },
+      {
+       "id": "5.3.11",
+       "title": "Number Theory in Programming Contests",
+       "page": 29,
+       "depth": 2
+      },
+      {
+       "id": "5.4",
+       "title": "Combinatorics",
+       "page": 34,
+       "depth": 1
+      },
+      {
+       "id": "5.4.1",
+       "title": "Fibonacci Numbers",
+       "page": 34,
+       "depth": 2
+      },
+      {
+       "id": "5.4.2",
+       "title": "Binomial Coefficients",
+       "page": 35,
+       "depth": 2
+      },
+      {
+       "id": "5.4.3",
+       "title": "Catalan Numbers",
+       "page": 36,
+       "depth": 2
+      },
+      {
+       "id": "5.4.4",
+       "title": "Combinatorics in Programming Contests",
+       "page": 37,
+       "depth": 2
+      },
+      {
+       "id": "5.5",
+       "title": "Probability Theory",
+       "page": 41,
+       "depth": 1
+      },
+      {
+       "id": "5.6",
+       "title": "Cycle-Finding",
+       "page": 44,
+       "depth": 1
+      },
+      {
+       "id": "5.6.1",
+       "title": "Problem Description",
+       "page": 44,
+       "depth": 2
+      },
+      {
+       "id": "5.6.2",
+       "title": "Solutions using Efficient Data Structures",
+       "page": 44,
+       "depth": 2
+      },
+      {
+       "id": "5.6.3",
+       "title": "Floyd’s Cycle-Finding Algorithm",
+       "page": 45,
+       "depth": 2
+      },
+      {
+       "id": "5.7",
+       "title": "Game Theory (Basic)",
+       "page": 48,
+       "depth": 1
+      },
+      {
+       "id": "5.8",
+       "title": "Matrix Power",
+       "page": 51,
+       "depth": 1
+      },
+      {
+       "id": "5.8.1",
+       "title": "Some Definitions and Sample Usages",
+       "page": 51,
+       "depth": 2
+      },
+      {
+       "id": "5.8.2",
+       "title": "Efficient Modular Power (Exponentiation)",
+       "page": 52,
+       "depth": 2
+      },
+      {
+       "id": "5.8.3",
+       "title": "Efficient Matrix Modular Power (Exponentiation)",
+       "page": 53,
+       "depth": 2
+      },
+      {
+       "id": "5.8.4",
+       "title": "DP Speed-up with Matrix Power",
+       "page": 54,
+       "depth": 2
+      }
+     ]
+    },
+    {
+     "id": "6",
+     "title": "String Processing",
+     "page": 61,
+     "sections": [
+      {
+       "id": "6.1",
+       "title": "Overview and Motivation",
+       "page": 61,
+       "depth": 1
+      },
+      {
+       "id": "6.2",
+       "title": "Ad Hoc String (Harder)",
+       "page": 62,
+       "depth": 1
+      },
+      {
+       "id": "6.3",
+       "title": "String Processing with DP",
+       "page": 65,
+       "depth": 1
+      },
+      {
+       "id": "6.3.1",
+       "title": "String Alignment (Edit Distance)",
+       "page": 65,
+       "depth": 2
+      },
+      {
+       "id": "6.3.2",
+       "title": "Longest Common Subsequence",
+       "page": 67,
+       "depth": 2
+      },
+      {
+       "id": "6.3.3",
+       "title": "Non Classical String Processing with DP",
+       "page": 67,
+       "depth": 2
+      },
+      {
+       "id": "6.4",
+       "title": "String Matching",
+       "page": 69,
+       "depth": 1
+      },
+      {
+       "id": "6.4.1",
+       "title": "Library Solutions",
+       "page": 69,
+       "depth": 2
+      },
+      {
+       "id": "6.4.2",
+       "title": "Knuth-Morris-Pratt (KMP) Algorithm",
+       "page": 69,
+       "depth": 2
+      },
+      {
+       "id": "6.4.3",
+       "title": "String Matching in a 2D Grid",
+       "page": 72,
+       "depth": 2
+      },
+      {
+       "id": "6.5",
+       "title": "Suffix Trie/Tree/Array",
+       "page": 74,
+       "depth": 1
+      },
+      {
+       "id": "6.5.1",
+       "title": "Suffix Trie and Applications",
+       "page": 74,
+       "depth": 2
+      },
+      {
+       "id": "6.5.2",
+       "title": "Suffix Tree",
+       "page": 76,
+       "depth": 2
+      },
+      {
+       "id": "6.5.3",
+       "title": "Applications of Suffix Tree",
+       "page": 77,
+       "depth": 2
+      },
+      {
+       "id": "6.5.4",
+       "title": "Suffix Array",
+       "page": 79,
+       "depth": 2
+      },
+      {
+       "id": "6.5.5",
+       "title": "Applications of Suffix Array",
+       "page": 87,
+       "depth": 2
+      },
+      {
+       "id": "6.6",
+       "title": "String Matching with Hashing",
+       "page": 91,
+       "depth": 1
+      },
+      {
+       "id": "6.6.1",
+       "title": "Hashing a String",
+       "page": 91,
+       "depth": 2
+      },
+      {
+       "id": "6.6.2",
+       "title": "Rolling Hash",
+       "page": 91,
+       "depth": 2
+      },
+      {
+       "id": "6.6.3",
+       "title": "Rabin-Karp String Matching Algorithm",
+       "page": 93,
+       "depth": 2
+      },
+      {
+       "id": "6.6.4",
+       "title": "Collisions Probability",
+       "page": 94,
+       "depth": 2
+      },
+      {
+       "id": "6.7",
+       "title": "Anagram and Palindrome",
+       "page": 95,
+       "depth": 1
+      },
+      {
+       "id": "6.7.1",
+       "title": "Anagram",
+       "page": 95,
+       "depth": 2
+      },
+      {
+       "id": "6.7.2",
+       "title": "Palindrome",
+       "page": 95,
+       "depth": 2
+      }
+     ]
+    },
+    {
+     "id": "7",
+     "title": "(Computational) Geometry",
+     "page": 101,
+     "sections": [
+      {
+       "id": "7.1",
+       "title": "Overview and Motivation",
+       "page": 101,
+       "depth": 1
+      },
+      {
+       "id": "7.2",
+       "title": "Basic Geometry Objects with Libraries",
+       "page": 104,
+       "depth": 1
+      },
+      {
+       "id": "7.2.1",
+       "title": "0D Objects: Points",
+       "page": 104,
+       "depth": 2
+      },
+      {
+       "id": "7.2.2",
+       "title": "1D Objects: Lines",
+       "page": 107,
+       "depth": 2
+      },
+      {
+       "id": "7.2.3",
+       "title": "2D Objects: Circles",
+       "page": 112,
+       "depth": 2
+      },
+      {
+       "id": "7.2.4",
+       "title": "2D Objects: Triangles",
+       "page": 114,
+       "depth": 2
+      },
+      {
+       "id": "7.2.5",
+       "title": "2D Objects: Quadrilaterals",
+       "page": 117,
+       "depth": 2
+      },
+      {
+       "id": "7.3",
+       "title": "Algorithms on Polygon with Libraries",
+       "page": 120,
+       "depth": 1
+      },
+      {
+       "id": "7.3.1",
+       "title": "Polygon Representation",
+       "page": 120,
+       "depth": 2
+      },
+      {
+       "id": "7.3.2",
+       "title": "Perimeter of a Polygon",
+       "page": 120,
+       "depth": 2
+      },
+      {
+       "id": "7.3.3",
+       "title": "Area of a Polygon",
+       "page": 121,
+       "depth": 2
+      },
+      {
+       "id": "7.3.4",
+       "title": "Checking if a Polygon is Convex",
+       "page": 122,
+       "depth": 2
+      },
+      {
+       "id": "7.3.5",
+       "title": "Checking if a Point is Inside a Polygon",
+       "page": 123,
+       "depth": 2
+      },
+      {
+       "id": "7.3.6",
+       "title": "Cutting Polygon with a Straight Line",
+       "page": 124,
+       "depth": 2
+      },
+      {
+       "id": "7.3.7",
+       "title": "Finding the Convex Hull of a Set of Points",
+       "page": 126,
+       "depth": 2
+      },
+      {
+       "id": "7.4",
+       "title": "3D Geometry",
+       "page": 132,
+       "depth": 1
+      }
+     ]
+    },
+    {
+     "id": "8",
+     "title": "More Advanced Topics",
+     "page": 137,
+     "sections": [
+      {
+       "id": "8.1",
+       "title": "Overview and Motivation",
+       "page": 137,
+       "depth": 1
+      },
+      {
+       "id": "8.2",
+       "title": "More Advanced Search Techniques",
+       "page": 138,
+       "depth": 1
+      },
+      {
+       "id": "8.2.1",
+       "title": "Backtracking with Bitmask",
+       "page": 138,
+       "depth": 2
+      },
+      {
+       "id": "8.2.2",
+       "title": "State-Space Search with BFS or Dijkstra’s",
+       "page": 141,
+       "depth": 2
+      },
+      {
+       "id": "8.2.3",
+       "title": "Meet in the Middle",
+       "page": 143,
+       "depth": 2
+      },
+      {
+       "id": "8.3",
+       "title": "More Advanced DP Techniques",
+       "page": 147,
+       "depth": 1
+      },
+      {
+       "id": "8.3.1",
+       "title": "DP with Bitmask",
+       "page": 147,
+       "depth": 2
+      },
+      {
+       "id": "8.3.2",
+       "title": "Compilation of Common (DP) Parameters",
+       "page": 148,
+       "depth": 2
+      },
+      {
+       "id": "8.3.3",
+       "title": "Handling Negative Parameter Values with Offset",
+       "page": 148,
+       "depth": 2
+      },
+      {
+       "id": "8.3.4",
+       "title": "MLE/TLE? Use Better State Representation",
+       "page": 150,
+       "depth": 2
+      },
+      {
+       "id": "8.3.5",
+       "title": "MLE/TLE? Drop One Parameter, Recover It from Others",
+       "page": 151,
+       "depth": 2
+      },
+      {
+       "id": "8.3.6",
+       "title": "Multiple Test Cases? No Memo Table Re-initializations",
+       "page": 152,
+       "depth": 2
+      },
+      {
+       "id": "8.3.7",
+       "title": "MLE? Use bBST or Hash Table as Memo Table",
+       "page": 153,
+       "depth": 2
+      },
+      {
+       "id": "8.3.8",
+       "title": "TLE? Use Binary Search Transition Speedup",
+       "page": 153,
+       "depth": 2
+      },
+      {
+       "id": "8.3.9",
+       "title": "Other DP Techniques",
+       "page": 154,
+       "depth": 2
+      },
+      {
+       "id": "8.4",
+       "title": "Network Flow",
+       "page": 156,
+       "depth": 1
+      },
+      {
+       "id": "8.4.1",
+       "title": "Overview and Motivation",
+       "page": 156,
+       "depth": 2
+      },
+      {
+       "id": "8.4.2",
+       "title": "Ford-Fulkerson Method",
+       "page": 156,
+       "depth": 2
+      },
+      {
+       "id": "8.4.3",
+       "title": "Edmonds-Karp Algorithm",
+       "page": 158,
+       "depth": 2
+      },
+      {
+       "id": "8.4.4",
+       "title": "Dinic’s Algorithm",
+       "page": 159,
+       "depth": 2
+      },
+      {
+       "id": "8.4.5",
+       "title": "Flow Graph Modeling - Classic",
+       "page": 164,
+       "depth": 2
+      },
+      {
+       "id": "8.4.6",
+       "title": "Flow Graph Modeling - Non Classic",
+       "page": 168,
+       "depth": 2
+      },
+      {
+       "id": "8.4.7",
+       "title": "Network Flow in Programming Contests",
+       "page": 169,
+       "depth": 2
+      },
+      {
+       "id": "8.5",
+       "title": "Graph Matching",
+       "page": 171,
+       "depth": 1
+      },
+      {
+       "id": "8.5.1",
+       "title": "Overview and Motivation",
+       "page": 171,
+       "depth": 2
+      },
+      {
+       "id": "8.5.2",
+       "title": "Graph Matching Variants",
+       "page": 171,
+       "depth": 2
+      },
+      {
+       "id": "8.5.3",
+       "title": "Unweighted MCBM",
+       "page": 172,
+       "depth": 2
+      },
+      {
+       "id": "8.5.4",
+       "title": "Weighted MCBM and Unweighted/Weighted MCM",
+       "page": 175,
+       "depth": 2
+      },
+      {
+       "id": "8.6",
+       "title": "NP-hard/complete Problems",
+       "page": 177,
+       "depth": 1
+      },
+      {
+       "id": "8.6.1",
+       "title": "Preliminaries",
+       "page": 177,
+       "depth": 2
+      },
+      {
+       "id": "8.6.2",
+       "title": "Pseudo-Polynomial: Knapsack, Subset-Sum, Coin-Change",
+       "page": 178,
+       "depth": 2
+      },
+      {
+       "id": "8.6.3",
+       "title": "Traveling-Salesman-Problem (TSP)",
+       "page": 179,
+       "depth": 2
+      },
+      {
+       "id": "8.6.4",
+       "title": "Hamiltonian-Path/Tour",
+       "page": 181,
+       "depth": 2
+      },
+      {
+       "id": "8.6.5",
+       "title": "Longest-Path",
+       "page": 182,
+       "depth": 2
+      },
+      {
+       "id": "8.6.6",
+       "title": "Max-Independent-Set and Min-Vertex-Cover",
+       "page": 183,
+       "depth": 2
+      },
+      {
+       "id": "8.6.7",
+       "title": "Min-Set-Cover",
+       "page": 189,
+       "depth": 2
+      },
+      {
+       "id": "8.6.8",
+       "title": "Min-Path-Cover",
+       "page": 190,
+       "depth": 2
+      },
+      {
+       "id": "8.6.9",
+       "title": "Satisfiability (SAT)",
+       "page": 191,
+       "depth": 2
+      },
+      {
+       "id": "8.6.10",
+       "title": "Steiner-Tree",
+       "page": 193,
+       "depth": 2
+      },
+      {
+       "id": "8.6.11",
+       "title": "Graph-Coloring",
+       "page": 195,
+       "depth": 2
+      },
+      {
+       "id": "8.6.12",
+       "title": "Min-Clique-Cover",
+       "page": 196,
+       "depth": 2
+      },
+      {
+       "id": "8.6.13",
+       "title": "Other NP-hard/complete Problems",
+       "page": 197,
+       "depth": 2
+      },
+      {
+       "id": "8.6.14",
+       "title": "Summary",
+       "page": 198,
+       "depth": 2
+      },
+      {
+       "id": "8.7",
+       "title": "Problem Decomposition",
+       "page": 201,
+       "depth": 1
+      },
+      {
+       "id": "8.7.1",
+       "title": "Two Components: Binary Search the Answer and Other",
+       "page": 201,
+       "depth": 2
+      },
+      {
+       "id": "8.7.2",
+       "title": "Two Components: Involving Efficient Data Structure",
+       "page": 203,
+       "depth": 2
+      },
+      {
+       "id": "8.7.3",
+       "title": "Two Components: Involving Geometry",
+       "page": 204,
+       "depth": 2
+      },
+      {
+       "id": "8.7.4",
+       "title": "Two Components: Involving Graph",
+       "page": 204,
+       "depth": 2
+      },
+      {
+       "id": "8.7.5",
+       "title": "Two Components: Involving Mathematics",
+       "page": 204,
+       "depth": 2
+      },
+      {
+       "id": "8.7.6",
+       "title": "Two Components: Graph Preprocessing and DP",
+       "page": 205,
+       "depth": 2
+      },
+      {
+       "id": "8.7.7",
+       "title": "Two Components: Involving 1D Static RSQ/RMQ",
+       "page": 206,
+       "depth": 2
+      },
+      {
+       "id": "8.7.8",
+       "title": "Three (or More) Components",
+       "page": 206,
+       "depth": 2
+      }
+     ]
+    },
+    {
+     "id": "9",
+     "title": "Rare Topics",
+     "page": 217,
+     "sections": [
+      {
+       "id": "9.1",
+       "title": "Overview and Motivation",
+       "page": 217,
+       "depth": 1
+      },
+      {
+       "id": "9.2",
+       "title": "Sliding Window",
+       "page": 219,
+       "depth": 1
+      },
+      {
+       "id": "9.3",
+       "title": "Sparse Table Data Structure",
+       "page": 221,
+       "depth": 1
+      },
+      {
+       "id": "9.4",
+       "title": "Square Root Decomposition",
+       "page": 224,
+       "depth": 1
+      },
+      {
+       "id": "9.5",
+       "title": "Heavy-Light Decomposition",
+       "page": 229,
+       "depth": 1
+      },
+      {
+       "id": "9.6",
+       "title": "Tower of Hanoi",
+       "page": 232,
+       "depth": 1
+      },
+      {
+       "id": "9.7",
+       "title": "Matrix Chain Multiplication",
+       "page": 233,
+       "depth": 1
+      },
+      {
+       "id": "9.8",
+       "title": "Lowest Common Ancestor",
+       "page": 235,
+       "depth": 1
+      },
+      {
+       "id": "9.9",
+       "title": "Tree Isomorphism",
+       "page": 237,
+       "depth": 1
+      },
+      {
+       "id": "9.10",
+       "title": "De Bruijn Sequence",
+       "page": 241,
+       "depth": 1
+      },
+      {
+       "id": "9.11",
+       "title": "Fast Fourier Transform",
+       "page": 244,
+       "depth": 1
+      },
+      {
+       "id": "9.12",
+       "title": "Pollard’s rho Algorithm",
+       "page": 264,
+       "depth": 1
+      },
+      {
+       "id": "9.13",
+       "title": "Chinese Remainder Theorem",
+       "page": 266,
+       "depth": 1
+      },
+      {
+       "id": "9.14",
+       "title": "Lucas’ Theorem",
+       "page": 270,
+       "depth": 1
+      },
+      {
+       "id": "9.15",
+       "title": "Rare Formulas or Theorems",
+       "page": 272,
+       "depth": 1
+      },
+      {
+       "id": "9.16",
+       "title": "Combinatorial Game Theory",
+       "page": 274,
+       "depth": 1
+      },
+      {
+       "id": "9.17",
+       "title": "Gaussian Elimination Algorithm",
+       "page": 279,
+       "depth": 1
+      },
+      {
+       "id": "9.18",
+       "title": "Art Gallery Problem",
+       "page": 282,
+       "depth": 1
+      },
+      {
+       "id": "9.19",
+       "title": "Closest Pair Problem",
+       "page": 283,
+       "depth": 1
+      },
+      {
+       "id": "9.20",
+       "title": "A* and IDA*: Informed Search",
+       "page": 284,
+       "depth": 1
+      },
+      {
+       "id": "9.21",
+       "title": "Pancake Sorting",
+       "page": 287,
+       "depth": 1
+      },
+      {
+       "id": "9.22",
+       "title": "Egg Dropping Puzzle",
+       "page": 290,
+       "depth": 1
+      },
+      {
+       "id": "9.23",
+       "title": "Dynamic Programming Optimization",
+       "page": 294,
+       "depth": 1
+      },
+      {
+       "id": "9.24",
+       "title": "Push-Relabel Algorithm",
+       "page": 302,
+       "depth": 1
+      },
+      {
+       "id": "9.25",
+       "title": "Min Cost (Max) Flow",
+       "page": 307,
+       "depth": 1
+      },
+      {
+       "id": "9.26",
+       "title": "Hopcroft-Karp Algorithm",
+       "page": 309,
+       "depth": 1
+      },
+      {
+       "id": "9.27",
+       "title": "Kuhn-Munkres Algorithm",
+       "page": 310,
+       "depth": 1
+      },
+      {
+       "id": "9.28",
+       "title": "Edmonds’ Matching Algorithm",
+       "page": 313,
+       "depth": 1
+      },
+      {
+       "id": "9.29",
+       "title": "Chinese Postman Problem",
+       "page": 316,
+       "depth": 1
+      },
+      {
+       "id": "9.30",
+       "title": "Constructive Problem",
+       "page": 318,
+       "depth": 1
+      },
+      {
+       "id": "9.31",
+       "title": "Interactive Problem",
+       "page": 321,
+       "depth": 1
+      },
+      {
+       "id": "9.32",
+       "title": "Linear Programming",
+       "page": 322,
+       "depth": 1
+      },
+      {
+       "id": "9.33",
+       "title": "Gradient Descent",
+       "page": 325,
+       "depth": 1
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "tags": {
+  "implementation": [
+   "1.4",
+   "1.6"
+  ],
+  "math": [
+   "5.2",
+   "5.3"
+  ],
+  "brute force": [
+   "3.2",
+   "8.2.3"
+  ],
+  "greedy": [
+   "3.4"
+  ],
+  "sortings": [
+   "2.2.2"
+  ],
+  "strings": [
+   "1.5",
+   "6.2",
+   "6.3",
+   "6.4",
+   "6.7"
+  ],
+  "constructive algorithms": [
+   "9.30",
+   "1.6"
+  ],
+  "binary search": [
+   "3.3.1",
+   "3.3.2"
+  ],
+  "two pointers": [
+   "9.2"
+  ],
+  "dp": [
+   "3.5",
+   "8.3",
+   "9.23"
+  ],
+  "number theory": [
+   "5.3",
+   "9.13",
+   "9.14"
+  ],
+  "graphs": [
+   "4.1",
+   "4.2",
+   "4.3",
+   "4.6"
+  ],
+  "dfs and similar": [
+   "4.2"
+  ],
+  "trees": [
+   "4.6.2",
+   "9.8",
+   "9.5",
+   "9.9"
+  ],
+  "data structures": [
+   "2.3",
+   "2.4.3",
+   "2.4.4",
+   "9.3",
+   "9.4"
+  ],
+  "bitmasks": [
+   "2.2.3",
+   "8.2.1",
+   "8.3.1"
+  ],
+  "dsu": [
+   "2.4.2"
+  ],
+  "combinatorics": [
+   "5.4",
+   "9.14"
+  ],
+  "shortest paths": [
+   "4.4",
+   "4.5"
+  ],
+  "divide and conquer": [
+   "3.3"
+  ],
+  "hashing": [
+   "2.3.2",
+   "6.6"
+  ],
+  "geometry": [
+   "7.2",
+   "7.3",
+   "7.4"
+  ],
+  "games": [
+   "5.7",
+   "9.16"
+  ],
+  "probabilities": [
+   "5.5"
+  ],
+  "flows": [
+   "8.4",
+   "8.5",
+   "9.24",
+   "9.25"
+  ],
+  "string suffix structures": [
+   "6.5"
+  ],
+  "fft": [
+   "9.11"
+  ],
+  "matrices": [
+   "5.8"
+  ],
+  "interactive": [
+   "9.31"
+  ]
+ }
+}

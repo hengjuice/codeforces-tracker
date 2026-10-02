@@ -66,6 +66,13 @@ nav.tabs button:hover{color:var(--fg)}nav.tabs button.on{color:var(--acc);border
 .tree .cat{grid-column:1/-1;font-weight:600;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin-top:14px}
 .chip{display:inline-block;cursor:pointer;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);margin:0 6px 6px 0;font-size:12px}.chip:hover{border-color:var(--acc)}
 .mono{font-family:'JetBrains Mono',monospace}
+details{border-top:1px solid var(--line);padding:6px 0}details:first-of-type{border-top:0}
+summary{cursor:pointer;padding:6px 0;display:flex;gap:10px;align-items:baseline}summary .m{color:var(--mut);font-size:12px;margin-left:auto}
+.srow{display:flex;align-items:center;gap:10px;padding:5px 0}.srow .t{flex:1;min-width:0}.srow .m{color:var(--mut);font-size:12px;white-space:nowrap}
+input[type=checkbox]{accent-color:var(--acc);width:15px;height:15px;cursor:pointer;flex:none}
+.search{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font:inherit}
+.chip input{vertical-align:middle;margin-right:4px}
+a.icon-btn{white-space:nowrap}
 </style></head><body>
 <header>
  <div class="top">
@@ -81,6 +88,7 @@ nav.tabs button:hover{color:var(--fg)}nav.tabs button.on{color:var(--acc);border
  <section class="tab" id="tab-overview"></section>
  <section class="tab" id="tab-road"></section>
  <section class="tab" id="tab-skills"></section>
+ <section class="tab" id="tab-study"></section>
  <section class="tab" id="tab-practice"></section>
  <section class="tab" id="tab-contests"></section>
  <section class="tab" id="tab-stats"></section>
@@ -119,7 +127,7 @@ $('hero').innerHTML=`
  <div class="stat"><div class="v">${(D.stats.acceptRate*100).toFixed(0)}<small style="font-size:16px;color:var(--mut)">%</small></div><div class="l">Acceptance</div><div class="s">${D.stats.submissions} submissions</div></div>`;
 
 // ---------- tabs ----------
-const TABS=[['overview','Overview'],['road','Road to '+tLabel],['skills','Skill tree'],['practice','Practice'],['contests','Contests'],['stats','Stats']];
+const TABS=[['overview','Overview'],['road','Road to '+tLabel],['skills','Skill tree'],['study','CP4 Books'],['practice','Practice'],['contests','Contests'],['stats','Stats']];
 $('tabs').innerHTML=TABS.map(([id,n])=>`<button data-t="${id}">${n}</button>`).join('');
 function show(id){if(!TABS.some(t=>t[0]===id))id='overview';
  TABS.forEach(([t])=>{$('tab-'+t).classList.toggle('on',t===id)});
@@ -176,12 +184,54 @@ $('tab-road').innerHTML=`
  <div class="card"><h2>Next on the ladder</h2><div class="hint">Most-solved unsolved problems in the first bands you haven't filled</div>
   <div class="grid g2" style="margin:0">${R.ladderNext.map(l=>`<div class="rec"><h3>Band ${l.band}<span>${l.solved}/${l.quota}</span></h3>${l.problems.map(p=>`<div class="row"><span class="t">${plink(p)}</span><span class="m">${p.solvedCount.toLocaleString()} solved</span></div>`).join('')||empty('No problems')}</div>`).join('')||empty('Ladder complete!')}</div></div>`;
 
+// ---------- CP4 study ----------
+const S=D.study;
+const secs=[];S.books.forEach(b=>b.chapters.forEach(c=>c.sections.forEach(s=>secs.push({...s,book:b.id,ch:c.id}))));
+const sById=Object.fromEntries(secs.map(s=>[s.id,s]));
+const desc=id=>secs.filter(s=>s.id.startsWith(id+'.'));
+const leafIds=id=>{const d=desc(id);return d.length?d.filter(s=>!desc(s.id).length).map(s=>s.id):[id]};
+const readSet=new Set(D.read);
+if(!D.served){try{const v=localStorage.getItem('cf-read');if(v){readSet.clear();JSON.parse(v).forEach(x=>readSet.add(x))}}catch{}}
+const isRead=id=>leafIds(id).every(x=>readSet.has(x));
+const bookUrl=(b,p)=>D.served?`/book/${b}#page=${p}`:D.bookFiles[b]?`${D.bookFiles[b]}#page=${p}`:null;
+const secLink=s=>{const u=bookUrl(s.book,s.page);return u?`<a href="${u}" target="_blank" rel="noopener" title="Open CP4 Book ${s.book} at PDF page ${s.page}">${esc(s.title)}</a>`:esc(s.title)};
+function setRead(ids,val){ids.forEach(i=>val?readSet.add(i):readSet.delete(i));
+ if(D.served)fetch('/api/read',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({ids,read:val})}).catch(()=>{});
+ else try{localStorage.setItem('cf-read',JSON.stringify([...readSet]))}catch{}}
+const prog=f=>{const l=secs.filter(s=>f(s)&&!desc(s.id).length);return{r:l.filter(s=>readSet.has(s.id)).length,n:l.length}};
+const secTags={};Object.entries(S.tags).forEach(([t,ids])=>ids.forEach(id=>[id,...desc(id).map(s=>s.id)].forEach(x=>(secTags[x]=secTags[x]||new Set()).add(t))));
+const chapters=[];S.books.forEach(b=>b.chapters.forEach(c=>chapters.push({...c,book:b.id,bt:b.title})));
+const openCh=new Set();let studyQ='';
+const readCard=()=>{const p=prog(()=>true);return `<div class="stat" id="rd-card"><div class="v">${pct(p.r,p.n)}<small style="font-size:16px;color:var(--mut)">%</small></div><div class="l">CP4 read</div><div class="s">${p.r} / ${p.n} sections</div></div>`};
+$('hero').insertAdjacentHTML('beforeend',readCard());
+function studyTop(){
+ const books=S.books.map(b=>{const p=prog(s=>s.book===b.id),missing=!D.served&&!D.bookFiles[b.id];
+  return `<div class="bar"><span class="n">${esc(b.title)}</span><div class="track"><i style="width:${pct(p.r,p.n)}%"></i></div><b>${p.r}/${p.n}</b></div>${missing?'<div class="hint">PDF not found — set its path under "books" in config.json.</div>':''}`}).join('');
+ const tags=[...new Set(T.focus.map(f=>f.tag))];
+ const queue=tags.map(t=>{const unread=(S.tags[t]||[]).filter(i=>!isRead(i));
+  return `<div class="row"><span class="t" style="white-space:normal"><b>${esc(t)}</b> <span class="m">${unread.length?'':'· all read ✓'}</span><div>${unread.slice(0,3).map(i=>`<span class="chip">§${i} ${secLink(sById[i])} <span class="m">p.${sById[i].page}</span></span>`).join('')}</div></span><a class="icon-btn" href="#skills" data-prac="${esc(t)}">Practice →</a></div>`}).join('')||empty('No focus tags yet');
+ return `<div class="grid g2"><div class="card"><h2>Reading progress</h2><div class="hint">Competitive Programming 4 — tick sections as you finish them</div>${books}</div>
+  <div class="card"><h2>Read, then practice</h2><div class="hint">Book sections for your current focus tags</div>${queue}</div></div>`}
+function studyList(){const q=studyQ.toLowerCase();
+ return chapters.map(c=>{const rows=c.sections.filter(s=>!q||(s.id+' '+s.title+' '+[...(secTags[s.id]||[])].join(' ')).toLowerCase().includes(q));
+  if(!rows.length)return '';const p=prog(s=>s.ch===c.id);
+  return `<details data-ch="${c.id}" ${openCh.has(c.id)||q?'open':''}><summary><b>${c.id}. ${esc(c.title)}</b><span class="m">${p.r}/${p.n} · ${esc(c.bt)}</span></summary>${rows.map(s=>`<div class="srow" style="padding-left:${(s.depth-1)*18}px"><input type="checkbox" data-sec="${s.id}" ${isRead(s.id)?'checked':''}><span class="m mono">${s.id}</span><span class="t">${secLink({...s,book:c.book})}</span>${[...(secTags[s.id]||[])].slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}<span class="m" title="PDF page">p.${s.page}</span></div>`).join('')}</details>`}).join('')||empty('No matching sections')}
+function redrawStudy(){$('study-top').innerHTML=studyTop();$('study-list').innerHTML=studyList();$('rd-card').outerHTML=readCard()}
+$('tab-study').innerHTML=`<div id="study-top"></div><div class="card" style="margin-bottom:16px"><input class="search" id="study-q" placeholder="Search sections or tags, e.g. dijkstra, 4.4, segment tree…"></div><div class="card" id="study-list"></div>`;
+$('study-q').oninput=e=>{studyQ=e.target.value;$('study-list').innerHTML=studyList()};
+$('tab-study').addEventListener('change',e=>{const id=e.target.dataset.sec;if(id){setRead(leafIds(id),e.target.checked);redrawStudy();drawSkills()}});
+$('tab-study').addEventListener('toggle',e=>{const c=e.target.dataset&&e.target.dataset.ch;if(c)e.target.open?openCh.add(c):openCh.delete(c)},true);
+$('tab-study').addEventListener('click',e=>{const t=e.target.closest('[data-prac]');if(!t)return;e.preventDefault();
+ const f=T.focus.find(x=>x.tag===t.dataset.prac);if(f)sel={tag:f.tag,tier:f.tier};drawSkills();show('skills')});
+
 const T=D.tree;let sel=T.focus[0]?{tag:T.focus[0].tag,tier:T.focus[0].tier}:null;
 const findTag=t=>T.skillTree.flatMap(c=>c.tags).find(x=>x.tag===t);
+const cpChips=tag=>{const ids=S.tags[tag]||[];if(!ids.length)return '';
+ return `<div style="margin:4px 0 10px"><div class="hint" style="margin-bottom:6px">Read in CP4</div>${ids.map(id=>{const s=sById[id];return `<span class="chip"><input type="checkbox" data-rd="${id}" ${isRead(id)?'checked':''}>§${id} ${secLink(s)} <span class="m">p.${s.page}</span></span>`}).join('')}</div>`};
 function drawSkills(){
  const node=(t,n,i)=>`<div class="node ${n.status} ${sel&&sel.tag===t.tag&&sel.tier===i?'sel':''}" data-tag="${esc(t.tag)}" data-tier="${i}" title="${n.lo}–${n.hi}: ${n.solved}/${n.quota}">${n.status==='mastered'?'✓ ':''}${Math.min(n.solved,n.quota)}/${n.quota}<i style="width:${Math.min(100,pct(n.solved,n.quota))}%"></i></div>`;
  const detail=(()=>{if(!sel)return empty('Every unlocked tier is mastered.');const t=findTag(sel.tag),n=t.tiers[sel.tier];
-  return `<h2>${esc(t.tag)} · ${n.lo}–${n.hi} <span class="tag">${n.status}</span></h2><div class="hint">${n.solved}/${n.quota} solved in this tier${n.status==='locked'?'. Fill the previous tier to about 60% to unlock.':''}</div>${n.problems.map(p=>`<div class="row"><span class="t">${plink(p)}</span>${badge(p.rating)}<span class="m">${p.solvedCount.toLocaleString()} solved</span></div>`).join('')||empty(n.status==='mastered'?'Mastered — nothing more needed here.':'Unlock this tier first.')}`})();
+  return `<h2>${esc(t.tag)} · ${n.lo}–${n.hi} <span class="tag">${n.status}</span></h2><div class="hint">${n.solved}/${n.quota} solved in this tier${n.status==='locked'?'. Fill the previous tier to about 60% to unlock.':''}</div>${cpChips(t.tag)}${n.problems.map(p=>`<div class="row"><span class="t">${plink(p)}</span>${badge(p.rating)}<span class="m">${p.solvedCount.toLocaleString()} solved</span></div>`).join('')||empty(n.status==='mastered'?'Mastered — nothing more needed here.':'Unlock this tier first.')}`})();
  $('tab-skills').innerHTML=`
   <div class="grid g2">
    <div class="card"><h2>Skill tree</h2><div class="hint">Five rating tiers per tag. Each tier unlocks when the previous one is 60% done.</div>
@@ -193,8 +243,10 @@ function drawSkills(){
   <div class="card" style="margin-bottom:16px">${detail}</div>
   <div class="card"><div class="tree"><div></div>${T.tiers.map(x=>`<div class="th">${x}</div>`).join('')}
    ${T.skillTree.map(c=>`<div class="cat">${c.category}</div>${c.tags.map(t=>`<div class="tg" title="${esc(t.tag)}">${esc(t.tag)}</div>${t.tiers.map((n,i)=>node(t,n,i)).join('')}`).join('')}`).join('')}</div></div>`;}
+$('tab-skills').addEventListener('change',e=>{const id=e.target.dataset.rd;if(id){setRead(leafIds(id),e.target.checked);redrawStudy();drawSkills()}});
 $('tab-skills').onclick=e=>{const n=e.target.closest('[data-tag]');if(!n||n.classList.contains('locked'))return;sel={tag:n.dataset.tag,tier:+n.dataset.tier};drawSkills()};
 drawSkills();
+redrawStudy();
 
 const tagCov=D.tagCoverage;
 $('tab-practice').innerHTML=`

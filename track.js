@@ -15,9 +15,11 @@ const goalIdx = args.indexOf('--goal');
 const goalArg = goalIdx >= 0 ? Number(args[goalIdx + 1]) : NaN;
 const targetIdx = args.indexOf('--target');
 const targetArg = targetIdx >= 0 ? Number(args[targetIdx + 1]) : NaN;
-const handle = args.find((a, i) => !a.startsWith('--') && i !== goalIdx + 1 && i !== targetIdx + 1) || process.env.CF_HANDLE || config.handle;
+const serveIdx = args.indexOf('--serve');
+const servePort = serveIdx >= 0 && /^\d+$/.test(args[serveIdx + 1] || '') ? Number(args[serveIdx + 1]) : 8787;
+const handle = args.find((a, i) => !a.startsWith('--') && i !== goalIdx + 1 && i !== targetIdx + 1 && !(serveIdx >= 0 && i === serveIdx + 1 && /^\d+$/.test(a))) || process.env.CF_HANDLE || config.handle;
 if (!handle) {
-  console.error('Usage: node track.js <handle> [--goal N] [--target R] [--open]');
+  console.error('Usage: node track.js <handle> [--goal N] [--target R] [--serve [port]] [--open]');
   process.exit(1);
 }
 const weeklyGoal = Number.isFinite(goalArg) && goalArg > 0 ? goalArg : config.weeklyGoal || 10;
@@ -25,7 +27,12 @@ const target = Number.isFinite(targetArg) && targetArg > 0 ? targetArg : config.
 // Problems to solve per problem-rating band on the way to the target. A rough heuristic; edit "quotas" in config.json to tune it.
 const DEFAULT_QUOTAS = { 800: 30, 900: 30, 1000: 40, 1100: 40, 1200: 50, 1300: 50, 1400: 50, 1500: 50, 1600: 50, 1700: 50, 1800: 50, 1900: 40, 2000: 40, 2100: 40, 2200: 30, 2300: 30, 2400: 20 };
 const quotas = config.quotas || DEFAULT_QUOTAS;
-fs.writeFileSync(configPath, JSON.stringify({ handle, weeklyGoal, target, quotas, ...(config.tagQuota && { tagQuota: config.tagQuota }) }, null, 2) + '\n');
+// Local PDFs of Competitive Programming 4 (Halim, Halim, Effendy). Edit the paths in config.json if yours live elsewhere.
+const DEFAULT_BOOKS = { 1: 'D:\\Books\\Competitive Programming 4 - Book 1.pdf', 2: 'D:\\Books\\Competitive programming 4 - Book 2.pdf' };
+config = { ...config, handle, weeklyGoal, target, quotas, books: config.books || DEFAULT_BOOKS, read: config.read || [] };
+const saveConfig = () => fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
+saveConfig();
+const cp4 = JSON.parse(fs.readFileSync(path.join(__dirname, 'cp4.json'), 'utf8'));
 
 async function api(method, params = {}) {
   const url = `https://codeforces.com/api/${method}?` + new URLSearchParams(params);
@@ -43,7 +50,7 @@ const brief = (p, extra = {}) => ({ key: keyOf(p), contestId: p.contestId, index
 const median = a => { const s = [...a].sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : 0; };
 const count = (obj, k) => { obj[k] = (obj[k] || 0) + 1; };
 
-(async () => {
+async function build() {
   const [[info], rating, subs, problemset, contests] = await Promise.all([
     api('user.info', { handles: handle }),
     api('user.rating', { handle }),
@@ -222,12 +229,64 @@ const count = (obj, k) => { obj[k] = (obj[k] || 0) + 1; };
     recent: solves.slice(-15).reverse(),
   };
 
-  fs.writeFileSync(path.join(__dirname, 'data.json'), JSON.stringify(data, null, 2));
-  const template = fs.readFileSync(path.join(__dirname, 'template.html'), 'utf8');
-  const json = JSON.stringify(data).replace(/</g, '\\u003c');
-  const out = path.join(__dirname, 'report.html');
-  fs.writeFileSync(out, template.replace('/*DATA*/null', () => json));
+  data.study = cp4;
+  data.bookFiles = Object.fromEntries(Object.entries(config.books).filter(([, f]) => fs.existsSync(f)).map(([n, f]) => [n, 'file:///' + encodeURI(f.replace(/\\/g, '/'))]));
+  fs.writeFileSync(path.join(__dirname, 'data.json'), JSON.stringify({ ...data, study: undefined }, null, 2));
+  fs.writeFileSync(path.join(__dirname, 'report.html'), render(data, false));
   console.log(`${data.handle}: ${data.totalSolved} solved, rating ${data.rating} (max ${data.maxRating}), streak ${current}d (best ${best}d)`);
+  return data;
+}
+
+function render(data, served) {
+  const template = fs.readFileSync(path.join(__dirname, 'template.html'), 'utf8');
+  const json = JSON.stringify({ ...data, read: config.read, served }).replace(/</g, String.fromCharCode(92) + 'u003c');
+  return template.replace('/*DATA*/null', () => json);
+}
+
+function serve(initial, port) {
+  let data = initial;
+  const send = (res, code, body, type = 'application/json') => { res.writeHead(code, { 'content-type': type }); res.end(body); };
+  const server = require('http').createServer(async (req, res) => {
+    const u = new URL(req.url, 'http://localhost');
+    try {
+      if (req.method === 'GET' && u.pathname === '/') return send(res, 200, render(data, true), 'text/html; charset=utf-8');
+      const book = u.pathname.match(/^\/book\/(\d+)$/);
+      if (req.method === 'GET' && book) {
+        const file = config.books[book[1]];
+        if (!file || !fs.existsSync(file)) return send(res, 404, 'Book not found', 'text/plain');
+        const size = fs.statSync(file).size, range = /bytes=(\d*)-(\d*)/.exec(req.headers.range || '');
+        const base = { 'content-type': 'application/pdf', 'accept-ranges': 'bytes' };
+        if (!range) { res.writeHead(200, { ...base, 'content-length': size }); return fs.createReadStream(file).pipe(res); }
+        const start = range[1] ? Number(range[1]) : 0, end = range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
+        res.writeHead(206, { ...base, 'content-range': `bytes ${start}-${end}/${size}`, 'content-length': end - start + 1 });
+        return fs.createReadStream(file, { start, end }).pipe(res);
+      }
+      if (req.method === 'POST' && (u.pathname === '/api/read' || u.pathname === '/api/refresh')) {
+        // JSON content type forces a CORS preflight, so other websites cannot POST here.
+        if (!(req.headers['content-type'] || '').startsWith('application/json')) return send(res, 415, '{}');
+        let body = ''; for await (const c of req) body += c;
+        if (u.pathname === '/api/refresh') { data = await build(); return send(res, 200, '{"ok":true}'); }
+        const { ids, read } = JSON.parse(body || '{}');
+        if (!Array.isArray(ids) || !ids.every(i => /^\d+(\.\d+)*$/.test(i))) return send(res, 400, '{}');
+        const set = new Set(config.read);
+        for (const id of ids) read ? set.add(id) : set.delete(id);
+        config.read = [...set];
+        saveConfig();
+        return send(res, 200, '{"ok":true}');
+      }
+      send(res, 404, 'Not found', 'text/plain');
+    } catch (e) { send(res, 500, JSON.stringify({ error: e.message })); }
+  });
+  server.listen(port, '127.0.0.1', () => {
+    const url = `http://localhost:${port}/`;
+    console.log(`Serving ${url}  (Ctrl+C to stop)`);
+    if (args.includes('--open')) require('child_process').exec(`start "" "${url}"`);
+  });
+}
+
+build().then(data => {
+  if (serveIdx >= 0) return serve(data, servePort);
+  const out = path.join(__dirname, 'report.html');
   console.log(`Wrote ${out}`);
   if (args.includes('--open')) require('child_process').exec(`start "" "${out}"`);
-})().catch(e => { console.error(e.message); process.exit(1); });
+}).catch(e => { console.error(e.message); process.exit(1); });

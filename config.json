@@ -20,5 +20,10 @@
     "2200": 30,
     "2300": 30,
     "2400": 20
-  }
+  },
+  "books": {
+    "1": "D:\\Books\\Competitive Programming 4 - Book 1.pdf",
+    "2": "D:\\Books\\Competitive programming 4 - Book 2.pdf"
+  },
+  "read": []
 }
